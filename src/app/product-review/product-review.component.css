@@ -1,0 +1,92 @@
+.review-container {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 600px;
+    margin: 1rem auto;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .review-container h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .rating-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .rating-group input {
+    display: none;
+  }
+  
+  .rating-group .star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .rating-group .star.filled {
+    color: gold;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+  }
+  
+  /* Estilos para la lista de reseñas */
+  .reviews-list {
+    margin-top: 2rem;
+  }
+  
+  .review-item {
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .review-rating .star {
+    font-size: 1.5rem;
+    color: #ccc;
+  }
+  
+  .review-rating .star.filled {
+    color: gold;
+  }
+  
+  .review-comment {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 0.5rem;
+  }
+  

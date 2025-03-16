@@ -1,0 +1,120 @@
+.cart-container {
+    padding: 2rem;
+    font-family: 'Poppins', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  thead {
+    background-color: #f5f5f5;
+  }
+  
+  th, td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .cart-total {
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Botones para cantidad */
+  .decrement-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 0.3rem;
+  }
+  
+  .decrement-btn:hover {
+    background-color: darkred;
+  }
+  
+  .increment-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 0.3rem;
+  }
+  
+  .increment-btn:hover {
+    background-color: darkblue;
+  }
+  
+  /* Botón para eliminar producto */
+  .remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .remove-btn:hover {
+    background-color: darkred;
+  }
+  
+  /* Botón Confirmar Pedido */
+  .confirm-btn {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirm-btn:hover {
+    background-color: #43a047;
+  }
+  
+  /* Botón Vaciar Carrito */
+  .clear-btn {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .clear-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Estilo general para otros botones (por ejemplo, "Volver al Catálogo") */
+  button {
+    font-family: 'Poppins', sans-serif;
+  }
+  

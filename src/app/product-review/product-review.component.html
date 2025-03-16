@@ -1,0 +1,28 @@
+<div class="review-container">
+    <h3>Valorar y Comentar</h3>
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+      <div class="rating-group">
+        <!-- Generamos 5 estrellas; al hacer clic se asigna la puntuación -->
+        <label *ngFor="let star of [1,2,3,4,5]">
+          <input type="radio" formControlName="rating" [value]="star" />
+          <span class="star" [class.filled]="star <= reviewForm.value.rating">&#9733;</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <textarea formControlName="comment" placeholder="Escribe tu comentario..."></textarea>
+      </div>
+      <button type="submit" [disabled]="reviewForm.invalid">Enviar Reseña</button>
+    </form>
+    
+    <!-- Se muestran las reseñas enviadas -->
+    <div class="reviews-list" *ngIf="reviews.length > 0">
+      <h4>Reseñas Recientes:</h4>
+      <div *ngFor="let review of reviews" class="review-item">
+        <div class="review-rating">
+          <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rating">&#9733;</span>
+        </div>
+        <p class="review-comment">{{ review.comment }}</p>
+      </div>
+    </div>
+  </div>
+  

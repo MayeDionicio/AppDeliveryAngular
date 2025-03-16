@@ -1,0 +1,43 @@
+<!-- src/app/catalog/catalog.component.html -->
+<div class="catalog-container">
+  <h2>Catálogo de Productos</h2>
+  
+  <!-- Buscador -->
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Buscar productos..."
+      [(ngModel)]="searchTerm"
+      class="search-input"
+    />
+    <span class="search-icon material-icons">search</span>
+  </div>
+  
+  <!-- Grid de productos -->
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of filteredProducts">
+      <img [src]="product.image" [alt]="product.name" />
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p class="price">Q {{ product.price | number:'1.2-2' }}</p>
+      
+      <!-- Estrellas de valoración -->
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= product.rating">
+          ★
+        </span>
+      </div>
+      
+      <!-- Botón Agregar al Carrito -->
+      <button (click)="addToCart(product)" class="add-to-cart-btn">
+        <span class="material-icons">shopping_cart</span> Agregar al carrito
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Burbuja fija para acceder al carrito -->
+<div class="cart-bubble" (click)="navigateToCart()">
+  <span class="material-icons">shopping_cart</span>
+  <span class="cart-count">{{ cartItemCount }}</span>
+</div>

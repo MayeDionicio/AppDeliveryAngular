@@ -1,0 +1,47 @@
+<div class="cart-container">
+    <h2>Carrito de Compras</h2>
+  
+    <!-- Si el carrito está vacío -->
+    <div *ngIf="cartItems.length === 0">
+      <p>El carrito está vacío.</p>
+      <button (click)="navigateToCatalog()">Volver al Catálogo</button>
+    </div>
+  
+    <!-- Si hay productos en el carrito -->
+    <div *ngIf="cartItems.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>{{ item.product.name }}</td>
+            <td>
+              <button class="decrement-btn" (click)="decrementQuantity(item)">-</button>
+              {{ item.quantity }}
+              <button class="increment-btn" (click)="incrementQuantity(item)">+</button>
+            </td>
+            <td>Q {{ (item.product.price * item.quantity) | number:'1.2-2' }}</td>
+            <td>
+              <button class="remove-btn" (click)="removeItem(item.product.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="cart-total">
+        <p>Total: Q {{ getTotal() | number:'1.2-2' }}</p>
+      </div>
+  
+      <div class="actions">
+        <button class="confirm-btn" (click)="navigateToOrderConfirmation()">Confirmar Pedido</button>
+        <button class="clear-btn" (click)="clearCart()">Vaciar Carrito</button>
+      </div>
+    </div>
+  </div>
+  
