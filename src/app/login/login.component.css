@@ -1,96 +1,89 @@
-/* login.component.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #fff9f0, #ffe5b4);
+}
 
-/* 1. Estilo del host: ocupa toda la pantalla, fondo degradado y fuente Poppins para todo */
-:host {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    /* Fondo degradado: de un rojo suave (tomate) a un amarillo (queso) */
-    background: linear-gradient(120deg, #ff7c7c 0%, #ffc947 100%);
-    font-family: 'Poppins', sans-serif;  /* Fuente aplicada a todo el componente */
-    color: #333;
-  }
-  
-  /* 2. Contenedor del formulario con efecto glass */
-  .login-container {
-    background-color: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 2rem 2.5rem;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    width: 320px;
-  }
-  
-  /* 3. Título del formulario */
-  .login-container h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #e53935; /* Rojo tomate */
-  }
-  
-  /* 4. Estilos para los labels */
-  .login-container label {
-    display: block;
-    margin-bottom: 0.3rem;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: #333;
-  }
-  
-  /* 5. Estilos para los inputs */
-  .login-container input {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: #333;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s ease;
-  }
-  
-  .login-container input::placeholder {
-    color: #999;
-  }
-  
-  .login-container input:focus {
-    outline: none;
-    border-color: #888;
-  }
-  
-  /* 6. Estilos para el botón "Entrar" */
-  .login-container button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    /* Gradiente suave de naranja a amarillo pastel */
-    background: linear-gradient(135deg, #ff8a65, #ffcc80);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: #fff;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    font-family: 'Poppins', sans-serif; /* Se refuerza la fuente Poppins aquí */
-    font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  }
-  
-  .login-container button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .login-container button:active {
-    transform: translateY(0);
-    box-shadow: none;
-  }
-  
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+h3 {
+  margin-bottom: 1.8rem;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: #4a4a4a;
+}
+
+input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff9800;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #fb8c00;
+}
+
+.btn-secondary {
+  width: 100%;
+  background-color: transparent;
+  color: #ff9800;
+  border: 2px solid #ff9800;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #ff9800;
+  color: white;
+}
