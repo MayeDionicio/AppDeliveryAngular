@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
 import Swal from 'sweetalert2';
 import { RouterModule } from '@angular/router';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, RecaptchaModule],
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.css']
 })
@@ -21,6 +22,8 @@ export class RegisterUserComponent {
     telefono: ''
   };
 
+  captchaToken: string = ''; 
+
   campos = [
     { label: 'Nombre completo', id: 'nombre', model: 'nombre', type: 'text' },
     { label: 'Correo electrónico', id: 'email', model: 'email', type: 'email' },
@@ -31,7 +34,14 @@ export class RegisterUserComponent {
 
   constructor(private authService: AuthService) {}
 
+ 
+  onCaptchaResolved(token: string | null) {
+    this.captchaToken = token || '';
+  }
+  
+
   register() {
+    
     for (const campo of this.campos) {
       if (!this.user[campo.model] || this.user[campo.model].trim() === '') {
         Swal.fire({
@@ -43,7 +53,23 @@ export class RegisterUserComponent {
       }
     }
 
-    this.authService.registrar(this.user).subscribe({
+   
+    if (!this.captchaToken) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Captcha requerido',
+        text: 'Por favor resuelve el captcha antes de registrar.'
+      });
+      return;
+    }
+
+    
+    const payload = {
+      ...this.user,
+      captchaToken: this.captchaToken
+    };
+
+    this.authService.registrar(payload).subscribe({
       next: (res: any) => {
         Swal.fire({
           icon: 'success',
@@ -57,7 +83,7 @@ export class RegisterUserComponent {
         Swal.fire({
           icon: 'error',
           title: 'Error al registrar',
-          text: err.error?.title || 'Ocurrió un problema'
+          text: err.error?.mensaje || 'Ocurrió un problema'
         });
       }
     });

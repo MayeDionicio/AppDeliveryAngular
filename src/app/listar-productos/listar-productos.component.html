@@ -1,0 +1,16 @@
+<div class="productos-container">
+  <h2>📋 Lista de Productos</h2>
+
+  <div class="producto-card" *ngFor="let producto of productos">
+    <img [src]="producto.imagenUrl" alt="Producto" />
+    <h3>{{ producto.nombre }}</h3>
+    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+    <p><strong>Precio:</strong> Q{{ producto.precio }}</p>
+    <p><strong>Stock:</strong> {{ producto.stock }}</p>
+
+    <div class="acciones">
+      <button (click)="editarProducto(producto)">✏️ Editar</button>
+      <button class="eliminar" (click)="eliminarProducto(producto.productoId)">🗑️ Eliminar</button>
+    </div>
+  </div>
+</div>

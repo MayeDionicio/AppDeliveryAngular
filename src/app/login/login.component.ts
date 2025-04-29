@@ -26,7 +26,10 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: (res: any) => {
+        // 🔥 Guarda token y rol
         localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', res.rol);
+
         Swal.fire({
           icon: 'success',
           title: '¡Inicio de sesión exitoso!',
@@ -34,14 +37,23 @@ export class LoginComponent {
           timer: 1500,
           showConfirmButton: false
         }).then(() => {
-          this.router.navigate(['/catalogo']);
+          const rol = res.rol;
+
+          if (rol === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (rol === 'usuario') {
+            this.router.navigate(['/catalogo']);
+          } else {
+            // Algo raro, volver a login
+            this.router.navigate(['/login']);
+          }
         });
       },
       error: (err: any) => {
         Swal.fire({
           icon: 'error',
           title: 'Error al iniciar sesión',
-          text: err.error?.title || 'Credenciales incorrectas'
+          text: err.error?.mensaje || 'Credenciales incorrectas'
         });
       }
     });

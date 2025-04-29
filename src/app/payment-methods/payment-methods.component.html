@@ -11,8 +11,6 @@
           <option value="PayPal">PayPal</option>
         </select>
       </div>
-  
-      <!-- Si se selecciona un método que no sea PayPal, se muestran campos de tarjeta -->
       <div *ngIf="paymentForm.value.type && paymentForm.value.type !== 'PayPal'">
         <div class="form-group">
           <label for="cardNumber">Número de Tarjeta:</label>

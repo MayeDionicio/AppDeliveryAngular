@@ -17,4 +17,26 @@ export class AuthService {
   registrar(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/registrar`, data);
   }
+
+  
+  guardarDatosSesion(token: string, rol: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('rol', rol);
+  }
+
+  
+  obtenerRol(): string {
+    return localStorage.getItem('rol') || '';
+  }
+
+  
+  obtenerToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('rol');
+  }
 }

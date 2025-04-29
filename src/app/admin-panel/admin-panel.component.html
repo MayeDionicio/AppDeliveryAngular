@@ -1,55 +1,15 @@
 <div class="admin-panel-container">
-    <h2>Panel Administrativo</h2>
-    <h3>Gestión de Productos</h3>
-    
-    <!-- Formulario para agregar/editar productos -->
-    <form [formGroup]="productForm" (ngSubmit)="isEditing ? updateProduct() : addProduct()">
-      <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input id="name" type="text" formControlName="name" placeholder="Nombre del producto" />
-      </div>
-      <div class="form-group">
-        <label for="description">Descripción:</label>
-        <input id="description" type="text" formControlName="description" placeholder="Descripción del producto" />
-      </div>
-      <div class="form-group">
-        <label for="price">Precio:</label>
-        <input id="price" type="number" formControlName="price" placeholder="Precio" />
-      </div>
-      <div class="form-group">
-        <label for="image">Imagen (ruta):</label>
-        <input id="image" type="text" formControlName="image" placeholder="Ruta de la imagen" />
-      </div>
-      <button type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }} Producto</button>
-    </form>
-    
-    <!-- Lista de productos -->
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Precio</th>
-          <th>Imagen</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <td>Q {{ product.price | number:'1.2-2' }}</td>
-          <td>
-            <img [src]="product.image" [alt]="product.name" />
-          </td>
-          <td>
-            <button (click)="editProduct(product)">Editar</button>
-            <button (click)="deleteProduct(product.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Panel Administrativo</h2>
+
+  <div class="card-grid">
+    <div class="admin-card" (click)="irARuta('/registrar-producto')">
+      <h4>📦 Registrar Producto</h4>
+      <p>Agrega un nuevo producto</p>
+    </div>
+
+    <div class="admin-card" (click)="irARuta('/listar-productos')">
+      <h4>📋 Listar Productos</h4>
+      <p>Ver, editar o eliminar productos existentes</p>
+    </div>
   </div>
-  
+</div>

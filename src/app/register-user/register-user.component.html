@@ -1,18 +1,30 @@
 <div class="register-wrapper">
-    <div class="register-card">
-      <h3 class="text-center">🥗 Crear Cuenta</h3>
-      <form (ngSubmit)="register()" #form="ngForm">
-        <div class="input-group" *ngFor="let campo of campos">
-          <label [for]="campo.id">{{ campo.label }}</label>
-          <input [type]="campo.type" [id]="campo.id" [(ngModel)]="user[campo.model]" [name]="campo.model" required #ctrl="ngModel">
-          <div class="error" *ngIf="ctrl.invalid && form.submitted">
-            Este campo es obligatorio.
-          </div>
+  <div class="register-card">
+    <h3 class="text-center">🥗 Crear Cuenta</h3>
+    <form (ngSubmit)="register()" #form="ngForm">
+      
+      <div class="input-group" *ngFor="let campo of campos">
+        <label [for]="campo.id">{{ campo.label }}</label>
+        <input [type]="campo.type" [id]="campo.id" [(ngModel)]="user[campo.model]" [name]="campo.model" required #ctrl="ngModel">
+        <div class="error" *ngIf="ctrl.invalid && form.submitted">
+          Este campo es obligatorio.
         </div>
-  
-        <button type="submit" class="btn-primary">Registrarse</button>
-        <button class="btn-secondary" [routerLink]="['/login']">Volver al inicio</button>
-      </form>
-    </div>
+      </div>
+
+      <!-- CAPTCHA añadido aquí -->
+      <div class="input-group">
+        <re-captcha 
+          (resolved)="onCaptchaResolved($event)" 
+          siteKey="6LcJviUrAAAAAHEstPv8jwd3Es1sYUGa14mrHTmN">
+        </re-captcha>
+        <div class="error" *ngIf="!captchaToken && form.submitted">
+          Por favor resuelve el captcha.
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Registrarse</button>
+      <button type="button" class="btn-secondary" [routerLink]="['/login']">Volver al inicio</button>
+
+    </form>
   </div>
-  
+</div>
