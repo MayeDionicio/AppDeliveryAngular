@@ -1,0 +1,38 @@
+<div class="orders-container">
+  <h2>Lista de Pedidos</h2>
+
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Acciones</th> <!-- 🔥 Asegurate de tener esta columna -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.pedidoId }}</td>
+        <td>{{ order.usuario?.nombre || '---' }}</td>
+        <td>{{ order.fechaPedido | date: 'short' }}</td>
+        <td>Q {{ order.total | number: '1.2-2' }}</td>
+        <td>{{ order.estado }}</td>
+        <td>
+          <button
+            class="entregar"
+            (click)="entregarPedido(order.pedidoId)"
+            [disabled]="order.estado === 'Entregado'">
+            ✅ Entregar
+          </button>
+          <button
+            class="eliminar"
+            (click)="eliminarPedido(order.pedidoId)">
+            ❌ Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

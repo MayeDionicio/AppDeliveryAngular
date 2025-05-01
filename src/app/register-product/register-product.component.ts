@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProductService } from '../Services/product.service'; // Corregido
-
+import { ProductService } from '../Services/product.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +18,7 @@ export class RegisterProductComponent {
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService // Servicio inyectado
+    private productService: ProductService
   ) {
     this.productoForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -31,13 +30,27 @@ export class RegisterProductComponent {
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
-    this.imagenSeleccionada = file;
+    const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagenPreviewUrl = reader.result;
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      if (file.type !== 'image/png') {
+        Swal.fire('Formato inválido', 'Solo se permiten imágenes PNG', 'warning');
+        return;
+      }
+
+      if (file.size > MAX_IMAGE_SIZE) {
+        Swal.fire('Imagen muy grande', 'La imagen debe pesar menos de 2MB', 'warning');
+        return;
+      }
+
+      this.imagenSeleccionada = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenPreviewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   registrarProducto(): void {
@@ -47,15 +60,15 @@ export class RegisterProductComponent {
     }
 
     const formData = new FormData();
-    formData.append('Nombre', this.productoForm.get('nombre')?.value);
-    formData.append('Descripcion', this.productoForm.get('descripcion')?.value);
-    formData.append('Precio', this.productoForm.get('precio')?.value);
-    formData.append('Stock', this.productoForm.get('stock')?.value);
+    formData.append('nombre', this.productoForm.get('nombre')?.value);
+    formData.append('descripcion', this.productoForm.get('descripcion')?.value);
+    formData.append('precio', this.productoForm.get('precio')?.value.toString());
+    formData.append('stock', this.productoForm.get('stock')?.value.toString());
     formData.append('imagen', this.imagenSeleccionada);
 
     this.productService.registrarProductoConImagen(formData).subscribe({
-      next: (res) => {
-        Swal.fire('Éxito', `Producto registrado correctamente.<br><strong>Imagen:</strong><br><a href="${res.urlImagen}" target="_blank">${res.urlImagen}</a>`, 'success');
+      next: () => {
+        Swal.fire('Éxito', 'Producto registrado correctamente.', 'success');
         this.productoForm.reset();
         this.imagenPreviewUrl = null;
       },

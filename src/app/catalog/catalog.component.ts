@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 import { CartService, Product } from '../Services/cart.service';
 import { ProductService } from '../Services/product.service';
 
@@ -23,10 +25,11 @@ export class CatalogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Cargar productos
     this.productService.getProducts().subscribe({
       next: (res: any[]) => {
         this.products = res.map(p => ({
-          id: p.id,
+          id: p.productoId,
           name: p.nombre,
           description: p.descripcion,
           price: p.precio,
@@ -38,6 +41,19 @@ export class CatalogComponent implements OnInit {
         console.error('Error al cargar productos', err);
       }
     });
+
+    // Verificar si viene con mensaje desde otra vista
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras?.state as { mensaje?: string };
+
+    if (state?.mensaje) {
+      Swal.fire({
+        icon: 'success',
+        title: state.mensaje,
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }
   }
 
   get filteredProducts(): Product[] {
@@ -52,7 +68,20 @@ export class CatalogComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addItem(product);
-    console.log('Producto agregado al carrito:', product);
+
+    // Mostrar notificación tipo toast
+    Swal.fire({
+      toast: true,
+      position: 'bottom-end',
+      icon: 'success',
+      title: `${product.name} agregado al carrito`,
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      background: '#f0f0f0',
+      color: '#333',
+      iconColor: '#00c851'
+    });
   }
 
   get cartItemCount(): number {

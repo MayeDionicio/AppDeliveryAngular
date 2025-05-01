@@ -10,32 +10,53 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // POST: /api/auth/login
   login(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data);
   }
 
+  // POST: /api/auth/registrar
   registrar(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/registrar`, data);
   }
 
-  
-  guardarDatosSesion(token: string, rol: string) {
+  // Guarda el token y rol en localStorage
+  guardarDatosSesion(token: string, rol: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('rol', rol);
   }
 
-  
+  // Obtiene el rol guardado
   obtenerRol(): string {
     return localStorage.getItem('rol') || '';
   }
 
-  
+  // Obtiene el token guardado
   obtenerToken(): string {
     return localStorage.getItem('token') || '';
   }
 
-  
-  logout() {
+  // Verifica si el usuario está logueado
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  // Extrae el usuarioId del payload del token JWT
+  getUsuarioId(): number | null {
+    const token = this.obtenerToken();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.usuarioId || null;
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
+  }
+
+  // Cierra sesión
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
   }

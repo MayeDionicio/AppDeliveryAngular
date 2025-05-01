@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 export class DashboardAdminComponent {
   opciones = [
     { titulo: 'Usuarios', icono: '👥', ruta: '/admin/usuarios' },
-    { titulo: 'Productos', icono: '📦', ruta: '/admin/productos' },
+    { titulo: 'Productos', icono: '📦', ruta: '/admin/register-product' },
     { titulo: 'Reportes', icono: '📈', ruta: '/admin/reportes' },
     { titulo: 'Configuración', icono: '⚙️', ruta: '/admin/configuracion' }
   ];

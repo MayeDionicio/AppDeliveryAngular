@@ -13,6 +13,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { RegisterProductComponent } from './register-product/register-product.component';
 import { ListarProductosComponent } from './listar-productos/listar-productos.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -37,7 +39,9 @@ export const routes: Routes = [
   { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'register-product', component: RegisterProductComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'listar-productos', component: ListarProductosComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard, AdminGuard] }
+  { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'view-orders', component: ViewOrdersComponent, canActivate: [AuthGuard, AdminGuard] }
 ];
 
 

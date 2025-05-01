@@ -1,0 +1,34 @@
+<div class="usuarios-container">
+    <h2>Gestión de Usuarios</h2>
+  
+    <!-- Buscador -->
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar usuarios..." class="search-box" />
+  
+    <!-- Tabla de usuarios -->
+    <table class="usuarios-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Dirección</th> 
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados">
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.telefono ? usuario.telefono : '-' }}</td>
+          <td>{{ usuario.direccion ? usuario.direccion : '-' }}</td> 
+          <td>{{ usuario.esAdmin ? 'Administrador' : 'Usuario normal' }}</td>
+          <td>
+            <button (click)="editarUsuario(usuario)" class="action-btn edit-btn">✏️</button>
+            <button (click)="eliminarUsuario(usuario)" class="action-btn delete-btn">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

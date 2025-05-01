@@ -1,39 +1,53 @@
 <div class="order-confirmation-container">
-    <h2>Confirmar Pedido</h2>
-    
-    <!-- Si el carrito está vacío -->
-    <div *ngIf="cartItems.length === 0">
-      <p>No tienes productos en el carrito.</p>
-      <button (click)="cancelOrder()">Volver al Catálogo</button>
+  <h2>🧾 Confirmar Pedido</h2>
+
+  <!-- Carrito vacío -->
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>No tienes productos en el carrito.</p>
+    <button class="btn-secondary" (click)="cancelOrder()">Volver al Catálogo</button>
+  </div>
+
+  <!-- Carrito con productos -->
+  <div *ngIf="cartItems.length > 0">
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>Q {{ (item.product.price * item.quantity) | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Método de pago -->
+    <div class="form-group">
+      <label for="metodoPago">Método de pago:</label>
+      <input
+        id="metodoPago"
+        type="text"
+        [(ngModel)]="metodoPagoTexto"
+        placeholder="Ej: Efectivo, Transferencia..."
+        required
+      />
     </div>
-    
-    <!-- Si hay productos en el carrito -->
-    <div *ngIf="cartItems.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of cartItems">
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>Q {{ (item.product.price * item.quantity) | number:'1.2-2' }}</td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <div class="total">
-        <p>Total: Q {{ getTotal() | number:'1.2-2' }}</p>
-      </div>
-      
-      <div class="actions">
-        <button (click)="confirmOrder()">Confirmar Pedido</button>
-        <button (click)="cancelOrder()">Cancelar</button>
-      </div>
+
+    <!-- Total -->
+    <div class="total-summary">
+      <strong>Total:</strong>
+      <span>Q {{ getTotal() | number:'1.2-2' }}</span>
+    </div>
+
+    <!-- Botones -->
+    <div class="actions">
+      <button class="btn-primary" (click)="confirmOrder()">✅ Confirmar Pedido</button>
+      <button class="btn-warning" (click)="cancelOrder()">❌ Cancelar</button>
     </div>
   </div>
-  
+</div>

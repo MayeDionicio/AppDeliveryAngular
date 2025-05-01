@@ -2,7 +2,7 @@
   <h2>Panel Administrativo</h2>
 
   <div class="card-grid">
-    <div class="admin-card" (click)="irARuta('/registrar-producto')">
+    <div class="admin-card" (click)="irARuta('/register-product')">
       <h4>📦 Registrar Producto</h4>
       <p>Agrega un nuevo producto</p>
     </div>
@@ -10,6 +10,16 @@
     <div class="admin-card" (click)="irARuta('/listar-productos')">
       <h4>📋 Listar Productos</h4>
       <p>Ver, editar o eliminar productos existentes</p>
+    </div>
+
+    <div class="admin-card" (click)="irARuta('/edit-user')">
+      <h4>👥 Gestión de Usuarios</h4>
+      <p>Editar o eliminar usuarios registrados</p>
+    </div>
+
+    <div class="admin-card" (click)="irARuta('/view-orders')">
+      <h4>🧾 Ver Pedidos</h4>
+      <p>Consulta el historial de pedidos realizados</p>
     </div>
   </div>
 </div>

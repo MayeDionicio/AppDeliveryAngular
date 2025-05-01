@@ -1,0 +1,43 @@
+.usuarios-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .search-box {
+    padding: 8px;
+    width: 300px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .usuarios-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usuarios-table th, .usuarios-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  
+  .edit-btn {
+    color: #ffc107;
+  }
+  
+  .delete-btn {
+    color: #dc3545;
+  }
+  
+  .action-btn:hover {
+    transform: scale(1.2);
+  }
+  

@@ -59,7 +59,7 @@ export class CartComponent implements OnInit {
 
   // Método público para navegar al catálogo (para usar en el template)
   public navigateToCatalog(): void {
-    this.router.navigate(['/catalog']);
+    this.router.navigate(['/catalogo']);
   }
 
   // Incrementa la cantidad de un ítem

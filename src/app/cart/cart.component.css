@@ -1,120 +1,116 @@
 .cart-container {
-    padding: 2rem;
-    font-family: 'Poppins', sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-  }
-  
-  thead {
-    background-color: #f5f5f5;
-  }
-  
-  th, td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .cart-total {
-    text-align: right;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .actions {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  /* Botones para cantidad */
-  .decrement-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 0.4rem 0.7rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 0.3rem;
-  }
-  
-  .decrement-btn:hover {
-    background-color: darkred;
-  }
-  
-  .increment-btn {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 0.4rem 0.7rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 0.3rem;
-  }
-  
-  .increment-btn:hover {
-    background-color: darkblue;
-  }
-  
-  /* Botón para eliminar producto */
-  .remove-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 0.4rem 0.7rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .remove-btn:hover {
-    background-color: darkred;
-  }
-  
-  /* Botón Confirmar Pedido */
-  .confirm-btn {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .confirm-btn:hover {
-    background-color: #43a047;
-  }
-  
-  /* Botón Vaciar Carrito */
-  .clear-btn {
-    background-color: #f44336;
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .clear-btn:hover {
-    background-color: #d32f2f;
-  }
-  
-  /* Estilo general para otros botones (por ejemplo, "Volver al Catálogo") */
-  button {
-    font-family: 'Poppins', sans-serif;
-  }
-  
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 24px;
+  color: #333;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-control button {
+  background-color: #eeeeee;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.quantity-control span {
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.total {
+  font-size: 18px;
+  color: #333;
+}
+
+.actions button {
+  margin-right: 0.5rem;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+.btn-primary, .btn-success, .btn-warning {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #d9534f;
+}

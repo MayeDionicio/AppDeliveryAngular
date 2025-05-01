@@ -1,54 +1,62 @@
 .productos-container {
-  max-width: 1100px;
-  margin: 2rem auto;
-  padding: 1rem;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 8px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.productos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.productos-table th, .productos-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
   text-align: center;
 }
 
-.producto-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-align: left;
-  position: relative;
+.productos-table th {
+  background-color: #f2f2f2;
 }
 
-.producto-card img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.acciones {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-button {
-  padding: 0.5rem 1rem;
+.action-btn {
+  padding: 5px 10px;
+  margin: 2px;
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
-button.eliminar {
-  background-color: #ff4d4d;
+.edit-btn {
+  background-color: #4CAF50;
   color: white;
 }
 
-button:not(.eliminar) {
-  background-color: #ffa500;
+.delete-btn {
+  background-color: #f44336;
   color: white;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  opacity: 0.8;
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
