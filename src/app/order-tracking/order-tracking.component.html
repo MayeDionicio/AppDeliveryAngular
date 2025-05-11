@@ -1,14 +1,5 @@
-<div class="tracking-container">
-  <h2>Seguimiento de Pedido</h2>
-  <div class="map-container">
-    <!-- Puedes usar una imagen estática o un placeholder -->
-    <img src="https://via.placeholder.com/600x300?text=Mapa+de+Seguimiento" alt="Mapa de seguimiento" />
-  </div>
-  <div class="tracking-steps">
-    <ul>
-      <li *ngFor="let step of trackingSteps; let i = index" [class.current]="i === currentStepIndex">
-        {{ step }}
-      </li>
-    </ul>
-  </div>
+<div *ngIf="estimatedMinutes > 0" class="estimated-time">
+  ⏱ <strong>Llegada estimada:</strong> {{ estimatedMinutes }} minutos
 </div>
+
+<div id="map" style="height: 500px; width: 100%;"></div>

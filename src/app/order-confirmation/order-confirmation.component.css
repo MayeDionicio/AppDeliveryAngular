@@ -49,6 +49,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn-primary,
@@ -78,4 +79,30 @@
   text-align: center;
   font-size: 16px;
   color: #777;
+}
+
+/* ✅ Estilo para el mapa Leaflet */
+#map {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* ✅ Responsivo para pantallas pequeñas */
+@media (max-width: 600px) {
+  .total-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  #map {
+    height: 250px;
+  }
 }

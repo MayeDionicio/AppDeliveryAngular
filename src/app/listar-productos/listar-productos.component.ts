@@ -167,11 +167,11 @@ export class ListarProductosComponent implements OnInit {
 
         if (this.imagenFile) {
           const formData = new FormData();
-          formData.append('nombre', data.nombre);
-          formData.append('descripcion', data.descripcion);
-          formData.append('precio', data.precio.toString());
-          formData.append('stock', data.stock.toString());
-          formData.append('imagen', this.imagenFile);
+          formData.append('Nombre', data.nombre);
+          formData.append('Descripcion', data.descripcion);
+          formData.append('Precio', data.precio.toString());
+          formData.append('Stock', data.stock.toString());
+          formData.append('Imagen', this.imagenFile);
 
           this.ProductService.actualizarProductoConImagen(producto.productoId || producto.producto_id, formData).subscribe({
             next: () => {

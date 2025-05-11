@@ -1,7 +1,6 @@
-<!-- src/app/catalog/catalog.component.html -->
 <div class="catalog-container">
   <h2>Catálogo de Productos</h2>
-  
+
   <!-- Buscador -->
   <div class="search-container">
     <input
@@ -12,7 +11,7 @@
     />
     <span class="search-icon material-icons">search</span>
   </div>
-  
+
   <!-- Grid de productos -->
   <div class="products-grid">
     <div class="product-card" *ngFor="let product of filteredProducts">
@@ -20,24 +19,64 @@
       <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
       <p class="price">Q {{ product.price | number:'1.2-2' }}</p>
-      
+
       <!-- Estrellas de valoración -->
       <div class="stars">
         <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= product.rating">
           ★
         </span>
       </div>
-      
-      <!-- Botón Agregar al Carrito -->
-      <button (click)="addToCart(product)" class="add-to-cart-btn">
-        <span class="material-icons">shopping_cart</span> Agregar al carrito
-      </button>
+
+      <!-- Botones -->
+      <div class="product-buttons">
+        <button (click)="addToCart(product)" class="add-to-cart-btn">
+          <span class="material-icons">shopping_cart</span> Agregar al carrito
+        </button>
+
+        <button class="valorar-btn" (click)="abrirModal(product)">
+          <span class="material-icons">star_rate</span> Valorar
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Burbuja fija para acceder al carrito -->
-<div class="cart-bubble" (click)="navigateToCart()">
-  <span class="material-icons">shopping_cart</span>
-  <span class="cart-count">{{ cartItemCount }}</span>
+<!-- Modal de Valoración -->
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal-content">
+    <h2>Valorar <span class="product-name">«{{ productoSeleccionado?.name }}»</span></h2>
+
+    <div class="star-rating">
+      <span *ngFor="let star of [1,2,3,4,5]"
+            (click)="valoracionSeleccionada = star"
+            [class.filled]="star <= valoracionSeleccionada">
+        ★
+      </span>
+    </div>
+
+    <textarea [(ngModel)]="comentarioValoracion"
+              placeholder="Escribe un comentario..."
+              rows="4">
+    </textarea>
+
+    <div class="modal-actions">
+      <button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+      <button class="btn-enviar" (click)="enviarValoracion()">Enviar</button>
+    </div>
+  </div>
 </div>
+
+<!-- Botones flotantes en columna -->
+<div class="floating-buttons">
+  <div class="profile-bubble" (click)="navigateToProfile()" title="Mi perfil">
+    <span class="material-icons">person</span>
+  </div>
+  <div class="cart-bubble" (click)="navigateToCart()" title="Ver carrito">
+    <span class="material-icons">shopping_cart</span>
+    <span class="cart-count">{{ cartItemCount }}</span>
+  </div>
+  <div class="history-bubble" (click)="navigateToHistory()" title="Historial de pedidos">
+  <span class="material-icons">history</span>
+</div>
+</div>
+

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { LoginComponent } from './login/login.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CartComponent } from './cart/cart.component';
@@ -15,34 +16,37 @@ import { ListarProductosComponent } from './listar-productos/listar-productos.co
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+
 import { AuthGuard } from './guards/auth.guard';
 import { UserGuard } from './guards/user.guard';
 import { AdminGuard } from './guards/admin.guard';
-
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterUserComponent },
 
-  // 🔥 Rutas para usuarios normales
+  // 🔒 Rutas para usuarios
   { path: 'catalogo', component: CatalogComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'order-confirmation', component: OrderConfirmationComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'orden-historia', component: OrderHistoryComponent, canActivate: [AuthGuard, UserGuard] },
-  { path: 'orden-tracking', component: OrderTrackingComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: 'order-tracking/:id', component: OrderTrackingComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'producto-review', component: ProductReviewComponent, canActivate: [AuthGuard, UserGuard] },
   { path: 'metodos-pago', component: PaymentMethodsComponent, canActivate: [AuthGuard, UserGuard] },
 
-  // 🔥 Rutas solo para administradores
+  // 🔒 Rutas para administradores
   { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'register-product', component: RegisterProductComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'listar-productos', component: ListarProductosComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'edit-user', component: EditUserComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'view-orders', component: ViewOrdersComponent, canActivate: [AuthGuard, AdminGuard] }
+  { path: 'view-orders', component: ViewOrdersComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'dashboard-admin', component: DashboardAdminComponent, canActivate: [AuthGuard, AdminGuard] }
 ];
+
 
 
 

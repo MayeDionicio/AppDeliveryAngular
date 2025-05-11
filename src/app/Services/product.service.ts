@@ -44,11 +44,11 @@ export class ProductService {
   }
 
   // PUT /api/Productos/{id}
-  actualizarProducto(id: number, producto: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, producto, {
-      headers: this.getHeaders()
-    });
-  }
+actualizarProducto(id: number, producto: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, producto, {
+    headers: this.getHeaders()
+  });
+}
 
   // PUT /api/Productos/{id} (con imagen)
   actualizarProductoConImagen(id: number, formData: FormData): Observable<any> {

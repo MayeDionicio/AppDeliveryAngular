@@ -99,3 +99,39 @@ input:focus {
   object-fit: cover;
   border-radius: 50%; /* Si quieres que el logo sea redondo */
 }
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 0.55rem 2.5rem 0.55rem 0.75rem; /* espaciado derecho para el botón */
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.eye-button {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-button img {
+  width: 18px;
+  height: 18px;
+}

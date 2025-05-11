@@ -33,4 +33,29 @@ export class UserService {
       headers: this.getHeaders()
     });
   }
+  getPerfil(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/perfil`, {
+      headers: this.getHeaders()
+    });
+  }
+  
+  actualizarPerfil(data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/perfil/editar`, data, {
+      headers: this.getHeaders()
+    });
+  }
+  
+  subirFotoPerfil(data: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/perfil/foto`, data, {
+      headers: this.getHeaders()
+    });
+  }
+  
+  eliminarFotoPerfil(): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/perfil/foto`, {
+      headers: this.getHeaders()
+    });
+  }
+  
+  
 }

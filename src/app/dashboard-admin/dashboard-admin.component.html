@@ -1,0 +1,19 @@
+<div class="dashboard">
+    <h2>📊 Estadísticas Generales</h2>
+  
+    <div class="stats">
+      <div class="card">📦 Pedidos Totales: <strong>{{ totalPedidos }}</strong></div>
+      <div class="card">✅ Entregados: <strong>{{ totalEntregados }}</strong></div>
+      <div class="card">🕒 Pendientes: <strong>{{ totalPendientes }}</strong></div>
+      <div class="card">💰 Ingresos: <strong>Q {{ totalIngresos | number:'1.2-2' }}</strong></div>
+    </div>
+  
+    <div class="chart">
+      <canvas baseChart
+        [data]="doughnutData"
+        [options]="chartOptions"
+        chartType="doughnut">
+      </canvas>
+    </div>
+  </div>
+  

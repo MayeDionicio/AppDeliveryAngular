@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   email = '';
   password = '';
+  mostrarPassword = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -26,7 +27,6 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: (res: any) => {
-        // 🔥 Guarda token y rol
         localStorage.setItem('token', res.token);
         localStorage.setItem('rol', res.rol);
 
@@ -44,7 +44,6 @@ export class LoginComponent {
           } else if (rol === 'usuario') {
             this.router.navigate(['/catalogo']);
           } else {
-            // Algo raro, volver a login
             this.router.navigate(['/login']);
           }
         });

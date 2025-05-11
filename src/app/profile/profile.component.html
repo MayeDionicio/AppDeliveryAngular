@@ -1,34 +1,53 @@
-<div class="profile-container">
-    <h2>Perfil de Usuario</h2>
-    <div class="message" *ngIf="message">{{ message }}</div>
-  
-    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-      <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input id="name" type="text" formControlName="name" placeholder="Ingresa tu nombre" />
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input id="email" type="email" formControlName="email" placeholder="Ingresa tu email" />
-      </div>
-      <button type="submit" [disabled]="profileForm.invalid">Actualizar Perfil</button>
-    </form>
-  
-    <h3>Cambiar Contraseña</h3>
-    <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
-      <div class="form-group">
-        <label for="currentPassword">Contraseña Actual:</label>
-        <input id="currentPassword" type="password" formControlName="currentPassword" placeholder="Contraseña actual" />
-      </div>
-      <div class="form-group">
-        <label for="newPassword">Nueva Contraseña:</label>
-        <input id="newPassword" type="password" formControlName="newPassword" placeholder="Nueva contraseña" />
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirma la nueva contraseña" />
-      </div>
-      <button type="submit" [disabled]="passwordForm.invalid">Cambiar Contraseña</button>
-    </form>
+<div class="profile-card">
+  <h2>Mi Perfil</h2>
+
+  <div class="profile-image">
+    <img
+      *ngIf="perfilForm.value.fotoUrl; else sinFoto"
+      [src]="perfilForm.value.fotoUrl"
+      alt="Foto de perfil"
+    />
+    <ng-template #sinFoto>
+      <p class="no-image">No hay foto de perfil</p>
+    </ng-template>
   </div>
-  
+
+  <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" formControlName="nombre" />
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input type="text" formControlName="telefono" />
+    </div>
+
+    <div class="form-group">
+      <label>Dirección:</label>
+      <input type="text" formControlName="direccion" />
+    </div>
+
+    <div class="btn-actions">
+      <button type="submit" class="btn btn-guardar">Guardar cambios</button>
+    </div>
+  </form>
+
+  <!-- Selector de archivo con estilo personalizado -->
+  <div class="file-upload-container">
+    <input type="file" id="fileInput" #fileInput (change)="onFileSelected($event)" hidden />
+    <button type="button" class="btn-select" (click)="fileInput.click()">Seleccionar imagen</button>
+    <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="btn-actions">
+    <button class="btn btn-azul" (click)="subirFoto()">Subir nueva foto</button>
+    <button class="btn btn-rojo" (click)="eliminarFoto()">Eliminar foto</button>
+  </div>
+</div>

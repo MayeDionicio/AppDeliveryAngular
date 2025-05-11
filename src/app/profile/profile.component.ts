@@ -1,54 +1,88 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { UserService } from '../Services/usuario.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  profileForm!: FormGroup;
-  passwordForm!: FormGroup;
-  message: string = '';
+  perfilForm!: FormGroup;
+  selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    // Simular carga de datos de perfil
-    this.profileForm = this.fb.group({
-      name: ['Juan Pérez', Validators.required],
-      email: ['juan.perez@example.com', [Validators.required, Validators.email]]
+    this.perfilForm = this.fb.group({
+      nombre: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      telefono: [''],
+      direccion: [''],
+      fotoUrl: ['']
     });
 
-    this.passwordForm = this.fb.group({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+    this.userService.getPerfil().subscribe({
+      next: data => this.perfilForm.patchValue(data),
+      error: err => console.error('Error al obtener perfil', err)
     });
   }
 
-  updateProfile(): void {
-    if (this.profileForm.valid) {
-      // Aquí iría una llamada a la API para actualizar el perfil
-      this.message = 'Perfil actualizado correctamente.';
-      console.log('Perfil actualizado:', this.profileForm.value);
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
   }
 
-  changePassword(): void {
-    if (this.passwordForm.valid) {
-      const newPassword = this.passwordForm.get('newPassword')?.value;
-      const confirmPassword = this.passwordForm.get('confirmPassword')?.value;
-      if (newPassword !== confirmPassword) {
-        this.message = 'Las contraseñas no coinciden.';
-        return;
+  subirFoto() {
+    if (!this.selectedFile) {
+      Swal.fire('Advertencia', 'Por favor selecciona una foto.', 'warning');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('archivo', this.selectedFile);
+
+    this.userService.subirFotoPerfil(formData).subscribe({
+      next: (res) => {
+        Swal.fire('¡Éxito!', 'Foto subida exitosamente.', 'success');
+        this.perfilForm.patchValue({ fotoUrl: res.fotoUrl });
+      },
+      error: () => {
+        Swal.fire('Error', 'Hubo un problema al subir la foto.', 'error');
       }
-      // Aquí se llamaría a la API para cambiar la contraseña
-      this.message = 'Contraseña cambiada correctamente.';
-      console.log('Contraseña cambiada');
+    });
+  }
+
+  actualizarPerfil() {
+    if (this.perfilForm.invalid) {
+      Swal.fire('Formulario inválido', 'Revisa los campos obligatorios.', 'warning');
+      return;
     }
+
+    const datos = this.perfilForm.value;
+    this.userService.actualizarPerfil(datos).subscribe({
+      next: () => Swal.fire('Actualizado', 'Perfil actualizado correctamente.', 'success'),
+      error: () => Swal.fire('Error', 'No se pudo actualizar el perfil.', 'error')
+    });
+  }
+
+  eliminarFoto() {
+    this.userService.eliminarFotoPerfil().subscribe({
+      next: () => {
+        Swal.fire('Eliminada', 'Foto eliminada correctamente.', 'success');
+        this.perfilForm.patchValue({ fotoUrl: null });
+      },
+      error: () => Swal.fire('Error', 'No se pudo eliminar la foto.', 'error')
+    });
   }
 }

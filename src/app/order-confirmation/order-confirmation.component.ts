@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService, CartItem } from '../Services/cart.service';
@@ -7,6 +7,7 @@ import { PaymentMethodService } from '../Services/payment-method.service';
 import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -15,9 +16,13 @@ import Swal from 'sweetalert2';
   templateUrl: './order-confirmation.component.html',
   styleUrls: ['./order-confirmation.component.css']
 })
-export class OrderConfirmationComponent implements OnInit {
+export class OrderConfirmationComponent implements OnInit, AfterViewInit {
   cartItems: CartItem[] = [];
   metodoPagoTexto: string = '';
+
+  selectedLat: number = 0;
+  selectedLng: number = 0;
+  mapInitialized = false;
 
   constructor(
     private cartService: CartService,
@@ -29,6 +34,51 @@ export class OrderConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getItems();
+  }
+
+  ngAfterViewInit(): void {
+    // ✅ Redefinir íconos de Leaflet para usar rutas de Angular
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: 'assets/leaflet/marker-icon-2x.png',
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Pin rojo de entrega
+      shadowUrl: 'assets/leaflet/marker-shadow.png'
+    });
+
+    if (!this.mapInitialized) {
+      const iniciarMapa = (lat: number, lng: number) => {
+        this.selectedLat = lat;
+        this.selectedLng = lng;
+
+        const map = L.map('map').setView([lat, lng], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+        marker.on('dragend', () => {
+          const pos = marker.getLatLng();
+          this.selectedLat = pos.lat;
+          this.selectedLng = pos.lng;
+        });
+
+        this.mapInitialized = true;
+      };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            iniciarMapa(position.coords.latitude, position.coords.longitude);
+          },
+          () => {
+            iniciarMapa(14.2978, -90.7869); // Escuintla por defecto
+          }
+        );
+      } else {
+        iniciarMapa(14.2978, -90.7869);
+      }
+    }
   }
 
   getTotal(): number {
@@ -75,6 +125,8 @@ export class OrderConfirmationComponent implements OnInit {
               estado: 'Pendiente',
               fechaPedido: new Date().toISOString(),
               metodoPagoId: mp.metodoPagoId,
+              customerLat: this.selectedLat,
+              customerLng: this.selectedLng,
               detalles: this.cartItems.map(item => ({
                 productoId: item.product.id,
                 cantidad: item.quantity,
@@ -83,17 +135,17 @@ export class OrderConfirmationComponent implements OnInit {
             };
 
             this.orderService.createOrder(pedido).subscribe({
-              next: () => {
+              next: (res) => {
                 this.cartService.clearCart();
 
                 Swal.fire({
                   icon: 'success',
                   title: '¡Pedido confirmado!',
-                  text: 'Redirigiendo al catálogo...',
+                  text: 'Redirigiendo al rastreo...',
                   showConfirmButton: false,
                   timer: 2000
                 }).then(() => {
-                  this.router.navigate(['/catalogo']);
+                  this.router.navigate(['/order-tracking', res.pedidoId]);
                 });
               },
               error: () => {
@@ -116,10 +168,10 @@ export class OrderConfirmationComponent implements OnInit {
       text: 'Has cancelado la confirmación. Regresando al catálogo...',
       showConfirmButton: false,
       timer: 2000
-  }).then(() => {
-    this.router.navigate(['/catalogo'], {
-      state: { mensaje: '¡Bienvenido de vuelta!' }
+    }).then(() => {
+      this.router.navigate(['/catalogo'], {
+        state: { mensaje: '¡Bienvenido de vuelta!' }
+      });
     });
-  });
-}
+  }
 }

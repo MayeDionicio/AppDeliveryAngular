@@ -38,6 +38,16 @@
       />
     </div>
 
+    <!-- Mapa para seleccionar ubicación -->
+    <div class="form-group">
+      <label>📍 Selecciona tu ubicación de entrega:</label>
+      <div id="map" style="height: 300px; width: 100%; margin-bottom: 1rem; border-radius: 8px;"></div>
+      <p style="margin-top: -10px;">
+        <strong>Latitud:</strong> {{ selectedLat }} |
+        <strong>Longitud:</strong> {{ selectedLng }}
+      </p>
+    </div>
+
     <!-- Total -->
     <div class="total-summary">
       <strong>Total:</strong>

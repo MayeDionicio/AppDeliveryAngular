@@ -1,20 +1,27 @@
 <div class="order-history-container">
-    <h2>Historial de Pedidos</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Total</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>{{ order.date }}</td>
-          <td>Q {{ order.total | number:'1.2-2' }}</td>
-          <td>{{ order.status }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <h2>Historial de Pedidos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders"
+          [ngClass]="{
+            'entregado': order.estado === 'Entregado',
+            'pendiente': order.estado === 'Pendiente'
+          }">
+        <td>{{ order.fechaPedido | date:'shortDate' }}</td>
+        <td>Q {{ order.total | number:'1.2-2' }}</td>
+        <td>
+          <span *ngIf="order.estado === 'Entregado'" class="estado-icon">✅</span>
+          <span *ngIf="order.estado === 'Pendiente'" class="estado-icon">⏳</span>
+          {{ order.estado }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

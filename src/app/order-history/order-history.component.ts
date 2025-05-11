@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OrderService } from '../Services/order.service';
+import { AuthService } from '../Services/auth.service';
 
 export interface Order {
-  id: number;
-  date: string;  // Formato de fecha en string para simplificar
+  pedidoId: number;
+  fechaPedido: string;
   total: number;
-  status: string;
+  estado: string;
 }
 
 @Component({
@@ -15,11 +17,18 @@ export interface Order {
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent {
-  // Datos estáticos para simular el historial de pedidos
-  orders: Order[] = [
-    { id: 1, date: '2023-11-01', total: 45.50, status: 'Enviado' },
-    { id: 2, date: '2023-10-25', total: 23.99, status: 'Pendiente' },
-    { id: 3, date: '2023-09-15', total: 67.20, status: 'Entregado' }
-  ];
+export class OrderHistoryComponent implements OnInit {
+  orders: Order[] = [];
+
+  constructor(
+    private orderService: OrderService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.orderService.getOrders().subscribe(pedidos => {
+      const usuarioId = Number(this.authService.getUsuarioId());
+      this.orders = pedidos.filter(p => p.usuario.usuarioId === usuarioId);
+    });
+  }
 }
